@@ -16,31 +16,34 @@ namespace BlazorApp1.Server.Service
             return await _cliente.CreateAsync(cliente);
         }
 
-        public Task<bool> DeleteCliente(int id)
+        public async Task<bool> DeleteCliente(int id)
         {
-            throw new NotImplementedException();
+            await _cliente.DeleteAsync(id);
+            return true;
         }
 
-        public Task<List<Cliente>> GetAllClientes()
+        public async Task<List<Cliente>> GetAllClientes()
         {
-            throw new NotImplementedException();
+            return await _cliente.GetAllAsync();
         }
 
-        public Task<Cliente> GetCliente(int id)
+        public async Task<Cliente> GetCliente(int id)
         {
-            throw new NotImplementedException();
+            return await _cliente.GetByIdAsync(id);
         }
 
-        public Task<bool> UpdateCliente(int id, Cliente cliente)
+        public async Task<bool> UpdateCliente(int id, Cliente cliente)
         {
-            var data = await _person.GetByIdAsync(id);
+            var data = await _cliente.GetByIdAsync(id);
             if (data != null)
             {
-                data.FirstName = person.FirstName;
-                data.LastName = person.LastName;
-                data.Email = person.Email;
-                data.MobileNo = person.MobileNo;
-                await _person.UpdateAsync(data);
+                data.NombreCliente = cliente.NombreCliente;
+                data.Contacto = cliente.Contacto;
+                data.Direccion = cliente.Direccion;
+                data.Telefono = cliente.Telefono;
+                data.Email = cliente.Email;
+                data.Proyecto = cliente.Proyecto;
+                await _cliente.UpdateAsync(data);
                 return true;
             }
             else
