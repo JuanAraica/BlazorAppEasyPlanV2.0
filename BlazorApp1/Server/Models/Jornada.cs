@@ -11,11 +11,11 @@ namespace BlazorApp1.Server.Models
         public int idJornada { get; set; }
         public string CedulaTra { get; set; }
         [Required]
-        public TimeOnly TipoJornada { get; set; }
+        public string TipoJornada { get; set; }
         [Required]
         public TimeOnly HoraInicio { get; set; }
         [Required]
-        public string HoraFin { get; set; }
+        public  TimeOnly HoraFin { get; set; }
         public Nullable<double> PrecioHoraRegular { get; set; }
         public Nullable<double> PrecioHoraExtra { get; set; }
         public Nullable<int> CantidadHorasRegulares { get; set; }

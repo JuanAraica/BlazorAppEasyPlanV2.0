@@ -1,32 +1,69 @@
-﻿using BlazorApp1.Server.Models;
-
+﻿using BlazorApp1.Server.AppDbContext;
+using BlazorApp1.Server.Models;
+using BlazorApp1.Server.Repository;
+using Microsoft.EntityFrameworkCore;
 namespace BlazorApp1.Server.Service
 {
     public class JornadaService : IJornadaService
     {
-        public Task<Jornada> AddJornada(Jornada jornada)
+        private readonly IRepository<Jornada> _jornada;
+        public JornadaService(IRepository<Jornada> jornada)
         {
-            throw new NotImplementedException();
+            _jornada = jornada;
+        }
+        public async Task<Jornada> AddJornada(Jornada jornada)
+        {
+            return await _jornada.CreateAsync(jornada);
         }
 
-        public Task<bool> DeleteJornada(int id)
+        public async Task<bool> DeleteJornada(int id)
         {
-            throw new NotImplementedException();
+            await _jornada.DeleteAsync(id);
+            return true;
         }
 
-        public Task<List<Jornada>> GetAllPersons()
+        public async Task<List<Jornada>> GetAllJornadas()
         {
-            throw new NotImplementedException();
+            return await _jornada.GetAllAsync();
         }
 
-        public Task<Jornada> GetPerson(int id)
+        public async Task<Jornada> GetJornada(int id)
         {
-            throw new NotImplementedException();
+            return await _jornada.GetByIdAsync(id);
         }
 
-        public Task<bool> UpdateJornada(int id, Jornada jornada)
+        public async Task<bool> UpdateJornada(int id, Jornada jornada)
         {
-            throw new NotImplementedException();
+            var data = await _jornada.GetByIdAsync(id);
+            if (data != null)
+            {
+                data.CedulaTra = jornada.CedulaTra;
+                data.nombreJornada = jornada.nombreJornada;
+                data.FechaJornada = jornada.FechaJornada;
+                data.TipoJornada = jornada.TipoJornada;
+                data.HoraInicio = jornada.HoraInicio;
+                data.HoraFin = jornada.HoraFin;
+                data.PrecioHoraRegular = jornada.PrecioHoraRegular;
+                data.PrecioHoraExtra = jornada.PrecioHoraExtra;
+                data.CantidadHorasRegulares = jornada.CantidadHorasRegulares;
+                data.CantidadHorasExtras = jornada.CantidadHorasExtras;
+                data.ValorTotalHoraExtra = jornada.ValorTotalHoraExtra;
+                data.ValorTotalHorasRegulares = jornada.ValorTotalHorasRegulares;
+                data.PrecioDia = jornada.PrecioDia;
+                data.UnidadMedida = jornada.UnidadMedida;
+                data.PrecioUnidadMedida = jornada.PrecioUnidadMedida;
+                data.ValorTotalUnidadMedida = jornada.ValorTotalUnidadMedida;
+                data.PrecioMetro = jornada.PrecioMetro;
+                data.PrecioPaquete = jornada.PrecioPaquete;
+                data.LaborExtra = jornada.LaborExtra;
+                data.PrecioLaborExtra = jornada.PrecioLaborExtra;
+                data.SalarioJornada = jornada.SalarioJornada;
+                data.Observacion = jornada.Observacion;
+                await _jornada.UpdateAsync(data);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
