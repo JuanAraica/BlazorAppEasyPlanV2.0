@@ -7,6 +7,7 @@ namespace BlazorApp1.Server.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string NombreCliente { get; set; }
         [Required]
         public string Contacto { get; set; }

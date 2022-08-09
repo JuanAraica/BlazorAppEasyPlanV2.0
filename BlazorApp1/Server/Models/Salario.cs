@@ -8,7 +8,7 @@ namespace BlazorApp1.Server.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idSalario { get; set; }
+        public int Id { get; set; }
         [Required]
         public string CedulaTra { get; set; }
         [Required]

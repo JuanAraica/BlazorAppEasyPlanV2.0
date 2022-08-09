@@ -7,7 +7,7 @@ namespace BlazorApp1.Server.Service
         Task<Historial> AddHistorial(Historial historial);
         Task<bool> UpdateHistorial(int id, Historial historial);
         Task<bool> DeleteHistorial(int id);
-        Task<List<Person>> GetAllHistorials();
-        Task<Person> GetHistorial(int id);
+        Task<List<Historial>> GetAllHistorials();
+        Task<Historial> GetHistorial(int id);
     }
 }

@@ -8,7 +8,7 @@ namespace BlazorApp1.Shared
 {
     public class HistorialViewModel
     {
-        public int idRegistro { get; set; }
+        public int Id { get; set; }
         public string Registro { get; set; }
         public string fecha { get; set; }
     }

@@ -10,7 +10,7 @@ namespace BlazorApp1.Shared
     public class AdelantoViewModel
     {
 
-        public int idAdelanto { get; set; }
+        public int Id { get; set; }
         [Required]
         [Display(Name = "Worker ID")]
         public string CedulaTra { get; set; }

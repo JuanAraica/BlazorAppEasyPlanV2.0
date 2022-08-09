@@ -9,6 +9,7 @@ namespace BlazorApp1.Server.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public string CedulaTra { get; set; }
         [Required]
         public string Nombre { get; set; }
