@@ -1,0 +1,152 @@
+﻿@page "/addworker"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@using BlazorApp1.Shared
+<h2>Add Worker</h2>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="CedulaTra"> Worker ID *</label>
+                        <input form="CedulaTra" class="form-control" @bind="@worker.CedulaTra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Nombre"> Name *</label>
+                        <input form="Nombre" class="form-control" @bind="@worker.Nombre" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Apellido"> Last Name *</label>
+                        <input form="Apellido" class="form-control" @bind="@worker.Apellido" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Puesto"> Position *</label>
+                        <input form="Puesto" class="form-control" @bind="@worker.Puesto" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Edad"> Age *</label>
+                        <input form="Edad" class="form-control" @bind="@worker.Edad" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Telefono"> Mobile No *</label>
+                        <input form="Telefono" class="form-control" @bind="@worker.Telefono" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Correo"> E-mail *</label>
+                        <input form="Correo" class="form-control" @bind="@worker.Correo" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FechaNacimiento"> Date of Birth *</label>
+                        <input form="FechaNacimiento" class="form-control" @bind="@worker.FechaNacimiento" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Nacionalidad"> Nationality *</label>
+                        <input form="Nacionalidad" class="form-control" @bind="@worker.Nacionalidad" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Ciudad"> City *</label>
+                        <input form="Ciudad" class="form-control" @bind="@worker.Ciudad" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Direccion"> Address *</label>
+                        <input form="Direccion" class="form-control" @bind="@worker.Direccion" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FechaEmpleo"> Hiring date *</label>
+                        <input form="FechaEmpleo" class="form-control" @bind="@worker.FechaEmpleo" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Empleador"> Employer *</label>
+                        <input form="Empleador" class="form-control" @bind="@worker.Empleador" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FechaDespido"> Dismissal date *</label>
+                        <input form="FechaDespido" class="form-control" @bind="@worker.FechaDespido" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="InicioIncapacidad"> Onset of disability *</label>
+                        <input form="InicioIncapacidad" class="form-control" @bind="@worker.InicioIncapacidad" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FinalIncapacidad"> End of disability *</label>
+                        <input form="FinalIncapacidad" class="form-control" @bind="@worker.FinalIncapacidad" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Padecimientos"> Ailments *</label>
+                        <input form="Padecimientos" class="form-control" @bind="@worker.Padecimientos" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Estado"> State *</label>
+                        <input form="Estado" class="form-control" @bind="@worker.Estado" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Observacion"> Observation *</label>
+                        <input form="Observacion" class="form-control" @bind="@worker.Observacion" />
+                    </div>
+            </div>
+</div>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+    
+    
+    WorkerViewModel worker  = new WorkerViewModel();
+    protected override async Task OnInitializedAsync()
+    {
+    }
+    protected async Task Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Worker", @worker);
+        WorkerViewModel workerResponse = await response.Content.ReadFromJsonAsync<WorkerViewModel>();
+            if (workerResponse?.Id > 0)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                NavigationManager.NavigateTo("workerlist");
+            }
+        }
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("workerlist");
+        }
+    }

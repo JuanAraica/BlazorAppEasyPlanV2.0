@@ -1,0 +1,58 @@
+﻿@page "/salariolist"
+@using BlazorApp1.Shared
+@inject HttpClient _httpClient
+<h1>salario Detail</h1>
+<div>
+    <a href="/addsalario"> Create New salario</a>
+    @if (salarioList != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Worker Id</th>
+                    <th width = "20%">Gross salary</th>
+                    <th width = "30%">C.C.S.S.</th>
+                    <th width = "20%">Advances</th>
+                    <th width = "20%">Other charges</th>
+                    <th width = "30%">Net salary</th>
+                    <th width = "20%">First date</th>
+                    <th width = "30%">Last date</th>
+                    <th width = "20%">Total deductions</th>
+                    <th width = "20%">Date</th>
+
+                    <th width = "30%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in salarioList)
+                {
+                    <tr>
+                    <td>@p.CedulaTra</td>
+                    <td>@p.SalarioBruto</td>
+                    <td>@p.Seguro</td>
+                    <td>@p.Adelantos</td>
+                    <td>@p.Otros</td>
+                    <td>@p.SalarioNeto</td>
+                    <td>@p.PrimeraFecha</td>
+                    <td>@p.UltimaFecha</td>
+                    <td>@p.TotalDeducciones</td>
+                    <td>@p.FechaSalario</td>
+                    <td>                        
+                        <a href="/getsalario/@p.Id">Details</a> | <a href="/editsalario/@p.Id">Edit</a> |
+                        <a href="/deletesalario/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+    List<SalarioViewModel> salarioList = new List<SalarioViewModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/salario");
+        response.EnsureSuccessStatusCode();
+        salarioList = await response.Content.ReadFromJsonAsync<List<SalarioViewModel>>();
+    }
+}

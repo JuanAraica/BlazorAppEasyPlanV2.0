@@ -1,0 +1,169 @@
+﻿@page "/addjornada"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@using BlazorApp1.Shared
+<h2>Add Jornada</h2>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="CedulaTra"> Worker ID *</label>
+                        <input form="CedulaTra" class="form-control" @bind="@jornada.CedulaTra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="TipoJornada"> Type *</label>
+                        <input form="TipoJornada" class="form-control" @bind="@jornada.TipoJornada" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="HoraInicio"> Start Time *</label>
+                        <input form="HoraInicio" class="form-control" @bind="@jornada.HoraInicio" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="HoraFin"> End Time *</label>
+                        <input form="HoraFin" class="form-control" @bind="@jornada.HoraFin" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioHoraRegular"> Price Regular Hour *</label>
+                        <input form="PrecioHoraRegular" class="form-control" @bind="@jornada.PrecioHoraRegular" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioHoraExtra"> Price Extra Hour *</label>
+                        <input form="PrecioHoraExtra" class="form-control" @bind="@jornada.PrecioHoraExtra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="CantidadHorasRegulares"> Regular Hours *</label>
+                        <input form="CantidadHorasRegulares" class="form-control" @bind="@jornada.CantidadHorasRegulares" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="CantidadHorasExtras"> Extra Hours *</label>
+                        <input form="CantidadHorasExtras" class="form-control" @bind="@jornada.CantidadHorasExtras" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="ValorTotalHoraExtra"> Total Price Extras Hours *</label>
+                        <input form="ValorTotalHoraExtra" class="form-control" @bind="@jornada.ValorTotalHoraExtra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="ValorTotalHorasRegulares"> Total Price Regular Hours *</label>
+                        <input form="ValorTotalHorasRegulares" class="form-control" @bind="@jornada.ValorTotalHorasRegulares" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioDia"> Price for Day *</label>
+                        <input form="PrecioDia" class="form-control" @bind="@jornada.PrecioDia" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="UnidadMedida"> Unit of Measurement *</label>
+                        <input form="UnidadMedida" class="form-control" @bind="@jornada.UnidadMedida" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioUnidadMedida"> Unit of Measurement's Price *</label>
+                        <input form="PrecioUnidadMedida" class="form-control" @bind="@jornada.PrecioUnidadMedida" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="ValorTotalUnidadMedida"> Price Total Unit of Measurement *</label>
+                        <input form="ValorTotalUnidadMedida" class="form-control" @bind="@jornada.ValorTotalUnidadMedida" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioMetro"> Metro Price *</label>
+                        <input form="PrecioMetro" class="form-control" @bind="@jornada.PrecioMetro" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioPaquete"> Package Price *</label>
+                        <input form="PrecioPaquete" class="form-control" @bind="@jornada.PrecioPaquete" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="LaborExtra"> Extra Labor *</label>
+                        <input form="LaborExtra" class="form-control" @bind="@jornada.LaborExtra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrecioLaborExtra"> Price Extra Labor *</label>
+                        <input form="PrecioLaborExtra" class="form-control" @bind="@jornada.PrecioLaborExtra" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FechaJornada"> Date *</label>
+                        <input form="FechaJornada" class="form-control" @bind="@jornada.FechaJornada" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="SalarioJornada"> day salary *</label>
+                        <input form="SalarioJornada" class="form-control" @bind="@jornada.SalarioJornada" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Observacion"> Observation *</label>
+                        <input form="Observacion" class="form-control" @bind="@jornada.Observacion" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="nombreJornada"> Name *</label>
+                        <input form="nombreJornada" class="form-control" @bind="@jornada.nombreJornada" />
+                    </div>
+            </div>
+</div>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+
+    JornadaViewModel jornada = new JornadaViewModel();
+    protected override async Task OnInitializedAsync()
+    {
+    }
+    protected async Task Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Jornada", @jornada);
+        JornadaViewModel jornadaResponse = await response.Content.ReadFromJsonAsync<JornadaViewModel>();
+            if (jornadaResponse?.Id > 0)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                NavigationManager.NavigateTo("jornadalist");
+            }
+        }
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("jornadalist");
+        }
+    }

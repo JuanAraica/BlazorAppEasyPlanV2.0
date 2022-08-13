@@ -1,0 +1,45 @@
+﻿@page "/adelantolist"
+@using BlazorApp1.Shared
+@inject HttpClient _httpClient
+<h1>Adelantos Details</h1>
+<div>
+    <a href="/addadelanto"> Create New Adelanto</a>
+    @if (adelantoList != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Worker Id</th>
+                    <th width = "20%">Amount of Money</th>
+                    <th width = "20%">Date</th>
+                    <th width = "20%">Transmitter</th>
+                    <th width = "30%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in adelantoList)
+                {
+                    <tr>
+                    <td>@p.CedulaTra</td>
+                    <td>@p.Monto</td>
+                    <td>@p.FechaAdelanto</td>
+                    <td>@p.EmisorAdelento</td>
+                    <td>                        
+                        <a href="/getadelanto/@p.Id">Details</a> | <a href="/editadelanto/@p.Id">Edit</a> |
+                        <a href="/deleteadelanto/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+    List<AdelantoViewModel> adelantoList = new List<AdelantoViewModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/adelanto");
+        response.EnsureSuccessStatusCode();
+        adelantoList = await response.Content.ReadFromJsonAsync<List<AdelantoViewModel>>();
+    }
+}

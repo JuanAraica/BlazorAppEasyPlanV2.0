@@ -1,0 +1,81 @@
+﻿@page "/jornadalist"
+@using BlazorApp1.Shared
+@inject HttpClient _httpClient
+<h1>Jornada Detail</h1>
+<div>
+    <a href="/addjornada"> Create New jornada</a>
+    @if (jornadaList != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Worker ID</th>
+                    <th width = "20%">Type</th>
+                    <th width = "20%">Start Time</th>
+                    <th width = "20%">End Time</th>
+                    <th width = "20%">Price Regular Hour</th>
+                    <th width = "30%">Price Extra Hour</th>
+                    <th width = "20%">Regular Hours</th>
+                    <th width = "20%">Extra Hours</th>
+                    <th width = "20%">Total Price Extras Hours</th>
+                    <th width = "20%">Total Price Regular Hours</th>
+                    <th width = "30%">Price for Day</th>
+                    <th width = "20%">Unit of Measurement</th>
+                    <th width = "20%">Unit of Measurement's Price</th>
+                    <th width = "20%">Price Total Unit of Measurement</th>
+                    <th width = "20%">Metro Price</th>
+                    <th width = "30%">Package Price</th>
+                    <th width = "20%">Extra Labor</th>
+                    <th width = "20%">Price Extra Labor</th>
+                    <th width = "20%">Date</th>
+                    <th width = "20%">day salary</th>
+                    <th width = "20%">Observation</th>
+                    <th width = "20%">Name</th>
+                    <th width = "30%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in jornadaList)
+                {
+                    <tr>
+                    <td>@p.CedulaTra</td>
+                    <td>@p.TipoJornada</td>
+                    <td>@p.HoraInicio</td>
+                    <td>@p.HoraFin</td>
+                    <td>@p.PrecioHoraRegular</td>
+                    <td>@p.PrecioHoraExtra</td>
+                    <td>@p.CantidadHorasRegulares</td>
+                    <td>@p.CantidadHorasExtras</td>
+                    <td>@p.ValorTotalHoraExtra</td>
+                    <td>@p.ValorTotalHorasRegulares</td>
+                    <td>@p.PrecioDia</td>
+                    <td>@p.UnidadMedida</td>
+                    <td>@p.PrecioUnidadMedida</td>
+                    <td>@p.ValorTotalUnidadMedida</td>
+                    <td>@p.PrecioMetro</td>
+                    <td>@p.PrecioPaquete</td>
+                    <td>@p.LaborExtra</td>
+                    <td>@p.PrecioLaborExtra</td>
+                    <td>@p.FechaJornada</td>
+                    <td>@p.SalarioJornada</td>
+                    <td>@p.Observacion</td>
+                    <td>@p.nombreJornada</td>
+                    <td>                        
+                        <a href="/getjornada/@p.Id">Details</a> | <a href="/editjornada/@p.Id">Edit</a> |
+                        <a href="/deletejornada/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+    List<JornadaViewModel> jornadaList = new List<JornadaViewModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/jornada");
+        response.EnsureSuccessStatusCode();
+        jornadaList = await response.Content.ReadFromJsonAsync<List<JornadaViewModel>>();
+    }
+}

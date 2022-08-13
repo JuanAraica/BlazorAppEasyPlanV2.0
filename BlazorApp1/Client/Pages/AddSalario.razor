@@ -1,0 +1,98 @@
+﻿@page "/addsalario"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@using BlazorApp1.Shared
+<h2>Add Salary</h2>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="CedulaTra"> Worker ID *</label>
+                        <input form="CedulaTra" class="form-control" @bind="@salario.CedulaTra" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="SalarioBruto"> Gross salary *</label>
+                        <input form="SalarioBruto" class="form-control" @bind="@salario.SalarioBruto" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Seguro"> C.C.S.S.*</label>
+                        <input form="Seguro" class="form-control" @bind="@salario.Seguro" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Adelantos"> Advances *</label>
+                        <input form="Adelantos" class="form-control" @bind="@salario.Adelantos" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Otros"> Other charges*</label>
+                        <input form="Otros" class="form-control" @bind="@salario.Otros" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="SalarioNeto"> Net salary *</label>
+                        <input form="SalarioNeto" class="form-control" @bind="@salario.SalarioNeto" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="PrimeraFecha"> First date*</label>
+                        <input form="PrimeraFecha" class="form-control" @bind="@salario.PrimeraFecha" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="UltimaFecha"> Last date *</label>
+                        <input form="UltimaFecha" class="form-control" @bind="@salario.UltimaFecha" />
+                    </div>
+            </div>                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="TotalDeducciones"> Total deductions*</label>
+                        <input form="TotalDeducciones" class="form-control" @bind="@salario.TotalDeducciones" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="FechaSalario"> Date *</label>
+                        <input form="FechaSalario" class="form-control" @bind="@salario.FechaSalario" />
+                    </div>
+            </div>
+    </div>
+
+
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+
+    SalarioViewModel salario = new SalarioViewModel();
+    protected override async Task OnInitializedAsync()
+    {
+    }
+    protected async Task Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Salario", @salario);
+        SalarioViewModel salarioResponse = await response.Content.ReadFromJsonAsync<SalarioViewModel>();
+            if (salarioResponse?.Id > 0)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                NavigationManager.NavigateTo("salariolist");
+            }
+        }
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("salariolist");
+        }
+    }

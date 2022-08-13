@@ -1,0 +1,75 @@
+﻿@page "/workerlist"
+@using BlazorApp1.Shared
+@inject HttpClient _httpClient
+<h1>Personal Detail</h1>
+<div>
+    <a href="/addworker"> Create New Worker</a>
+    @if (workerList != null)
+    {
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">Worker ID</th>
+                    <th width = "30%">Name</th>
+                    <th width = "30%">Position</th>
+                    <th width = "30%">Age</th>                    
+                    <th width = "20%">Mobile No</th>
+                    <th width = "20%">Email</th>
+                    <th width = "30%">Date of Birth</th>
+                    <th width = "30%">Nationality</th>
+                    <th width = "30%">City</th>
+                    <th width = "30%">Address</th>
+                    <th width = "30%">Hiring date</th>
+                    <th width = "30%">Employer</th>
+                    <th width = "30%">Dismissal date</th>
+                    <th width = "30%">Onset of disability</th>
+                    <th width = "30%">End of disability</th>
+                    <th width = "30%">Ailments</th>
+                    <th width = "30%">State</th>
+                    <th width = "30%">Observation</th>
+                    <th width = "30%">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in workerList)
+                {
+                    <tr>
+                    <td>@p.CedulaTra</td>
+                    <td>@p.Nombre @p.Apellido</td>
+                    <td>@p.Puesto</td>
+                    <td>@p.Edad</td>
+                    <td>@p.Telefono</td>
+                    <td>@p.Correo</td>
+                    <td>@p.FechaNacimiento</td>
+                    <td>@p.Edad</td>
+                    <td>@p.Nacionalidad</td>
+                    <td>@p.Ciudad</td>
+                    <td>@p.Direccion</td>
+                    <td>@p.FechaEmpleo</td>
+                    <td>@p.Empleador</td>
+                    <td>@p.FechaDespido</td>
+                    <td>@p.InicioIncapacidad</td>
+                    <td>@p.FinalIncapacidad</td>
+                    <td>@p.Padecimientos</td>
+                    <td>@p.Estado</td>
+                    <td>@p.Observacion</td>
+                    <td>                        
+                        <a href="/getworker/@p.Id">Details</a> | <a href="/editworker/@p.Id">Edit</a> |
+                        <a href="/deleteworker/@p.Id">Delete</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+    List<WorkerViewModel> workerList = new List<WorkerViewModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/worker");
+        response.EnsureSuccessStatusCode();
+        workerList = await response.Content.ReadFromJsonAsync<List<WorkerViewModel>>();
+    }
+}

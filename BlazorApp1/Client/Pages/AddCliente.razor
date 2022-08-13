@@ -1,0 +1,73 @@
+﻿@page "/addcliente"
+@using BlazorApp1.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+<h2>Add Client</h2>
+<div class="row">
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="NombreCliente"> Name *</label>
+                        <input form="NombreCliente" class="form-control" @bind="@cliente.NombreCliente" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Contacto"> Contact *</label>
+                        <input form="Contacto" class="form-control" @bind="@cliente.Contacto" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Direccion"> Direction *</label>
+                        <input form="Direccion" class="form-control" @bind="@cliente.Direccion" />
+                    </div>
+            </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Telefono"> Mobile No *</label>
+                        <input form="Telefono" class="form-control" @bind="@cliente.Telefono" />
+                    </div>
+            </div>
+
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Email"> E-Mail *</label>
+                        <input form="Email" class="form-control" @bind="@cliente.Email" />
+                    </div>
+            </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                        <label for="Proyecto"> Project *</label>
+                        <input form="Proyecto" class="form-control" @bind="@cliente.Proyecto" />
+                    </div>
+            </div>
+</div>
+<div class="row">
+        <div class="col-md-4">
+                <div class="form-group">
+                        <input type="button" class="btn btn-primary" @onclick="@Save" value="Save" />
+                        <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                    </div>
+            </div>
+</div>
+@code {
+    ClienteViewModel cliente = new ClienteViewModel();
+    protected override async Task OnInitializedAsync()
+    {
+    }
+    protected async Task Save()
+    {
+        var response = await Http.PostAsJsonAsync("api/Cliente", @cliente);
+        ClienteViewModel clienteResponse = await response.Content.ReadFromJsonAsync<ClienteViewModel>();
+            if (clienteResponse?.Id > 0)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                NavigationManager.NavigateTo("clientelist");
+            }
+        }
+        void Cancel()
+        {
+            NavigationManager.NavigateTo("clientelist");
+        }
+    }

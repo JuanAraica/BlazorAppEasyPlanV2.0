@@ -10,7 +10,7 @@ namespace BlazorApp1.Shared
     public class WorkerViewModel
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [Display(Name = "ID ")]
         public string CedulaTra { get; set; }

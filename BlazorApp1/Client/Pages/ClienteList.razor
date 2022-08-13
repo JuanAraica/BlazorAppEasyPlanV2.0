@@ -1,14 +1,23 @@
-﻿@page "/personlist"
+﻿@page "/clientelist"
 @using BlazorApp1.Shared
 @inject HttpClient _httpClient
-<h1>Personal Detail</h1>
+<h1>Clientes Detail</h1>
 <div>
-    <a href="/addperson"> Create New Person</a>
-    @if (personList != null)
+    <a href="/addcliente"> Create New Client</a>
+    @if (clienteList != null)
     {
         <table class="table-bordered">
             <thead>
                 <tr>
+                    <th width = "14%">Name</th>
+                    <th width = "14%">Contact</th>
+                    <th width = "14%">Direction</th>
+                    <th width = "14%">Phone</th>
+                    <th width = "14%">E-mail</th>
+                    <th width = "14%">Projact</th>
+                    <th width = "14%">Action</th>
+                </tr>
+                 <tr>
                     <th width = "30%">Name</th>
                     <th width = "20%">Email</th>
                     <th width = "20%">Mobile No</th>
@@ -16,14 +25,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in personList)
+                @foreach (var p in clienteList)
                 {
                     <tr>
-                        <td>
-                            @p.FirstName @p.LastName
-                        </td>
+                    <td>@p.NombreCliente</td>
+                    <td>@p.Contacto</td>
+                    <td>@p.Telefono</td>
+                    <td>@p.Direccion</td>
                     <td>@p.Email</td>
-                    <td>@p.MobileNo</td>
+                    <td>@p.Proyecto</td>
                     <td>
                         <a href="/editperson/@p.Id">Edit</a> |
                         <a href="/deleteperson/@p.Id">Delete</a>
@@ -35,11 +45,11 @@
     }
 </div>
 @code {
-    List<PersonViewModel> personList = new List<PersonViewModel>();
+    List<ClienteViewModel> clienteList = new List<ClienteViewModel>();
     protected override async Task OnInitializedAsync()
     {
-        var response = await _httpClient.GetAsync("api/person");
+        var response = await _httpClient.GetAsync("api/cliente");
         response.EnsureSuccessStatusCode();
-        personList = await response.Content.ReadFromJsonAsync<List<PersonViewModel>>();
+        clienteList = await response.Content.ReadFromJsonAsync<List<ClienteViewModel>>();
     }
 }
